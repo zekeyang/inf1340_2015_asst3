@@ -6,7 +6,7 @@ This module performs table operations on database tables
 implemented as lists of lists. """
 
 __author__ = 'Piaoyao Shi & Zixiao Yang & Ming Fu '
-__email__ = "piaoyao.shi@mail.utoronto.ca & zeke.yang@mail.utoronto.ca  & mm.fu@mail.utoronto.ca"
+__email__ = "piaoyao.shi@mail.utoronto.ca & zeke.yang@mail.utoronto.ca & mm.fu@mail.utoronto.ca"
 __copyright__ = "2015 Piaoyao Shi & Zixiao Yang & Ming Fu"
 
 
