@@ -49,7 +49,8 @@ def selection(t, f):
     > def f(row): row[-1] > 3
     > select(R, f)
     [["A", "B", "C"], [4, 5, 6]]
-
+    QUESTION:   ARE WE CONSIDERING OPERATOR "AND", "OR" AND COMBINATION OF "AND" AND "OR"?
+                HOW TO PASS AND USE ARGUMENT LIKE row[-1] > 3 ?
     """
 
     return []
@@ -66,6 +67,9 @@ def projection(t, r):
     [["A", "C"], [1, 3], [4, 6]]
 
     """
+    # check if each item in r exists in table t schema
+    # return the position of each item
+    # list all value in table t with the projected position
 
     return []
 
