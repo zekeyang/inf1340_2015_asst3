@@ -135,7 +135,6 @@ def check_location(case, countries):
 
 
 
-
 def decide(input_file, countries_file):
     """
     Decides whether a traveller's entry into Kanadia should be accepted
