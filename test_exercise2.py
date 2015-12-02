@@ -39,5 +39,11 @@ def test_accept():
      f. accept mismatch between uppercase and lowercase
 
  """
+def test_quarantine():
+ """test quarantine:
 
+ 1. citizen: coming from or travelling through a country with a medical advisory
+ 2. visitor: coming from or travelling through a country with a medical advisory
+
+ """
 
