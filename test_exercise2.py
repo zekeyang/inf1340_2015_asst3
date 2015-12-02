@@ -47,3 +47,15 @@ def test_quarantine():
 
  """
 
+ def test_reject():
+ """test reject
+
+ Visitor:
+ 1. entry record is incomplete
+ 2. entry record is unknown
+ 4. invalid visa
+ 5. A valid visa is less than two years old
+
+
+ """
+
