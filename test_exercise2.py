@@ -30,14 +30,6 @@ def test_accept():
     b. home country is Kanadia  (KAN)
     c. accept mismatch between uppercase and lowercase
 
- 2. visitor
-     a. complete entry record
-     b. location mentioned in the entry record is known
-     c. home country is not Kanadia  (KAN)
-     d. has a passport from a country from which a visitor visa is required
-     e. has a valid visa
-     f. accept mismatch between uppercase and lowercase
-
  """
 
 
