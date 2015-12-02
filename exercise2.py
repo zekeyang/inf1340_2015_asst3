@@ -114,7 +114,6 @@ def location_known(location, countries):
     """
     # need to be clarified
 
-
 def check_location(case, countries):
     """
     Check if the locations in a given case case are known
@@ -181,7 +180,7 @@ def valid_visa_format(visa_code):
 
 def valid_date_format(date_string):
     """
-    Checks whether a date has the format YYYY-mm-dd in numbers
+    Checks whether a date has the format yyyy-mm-dd in numbers
     :param date_string: date to be checked
     :return: Boolean True if the format is valid, False otherwise
     """
