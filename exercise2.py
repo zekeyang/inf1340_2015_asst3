@@ -15,13 +15,13 @@ import datetime
 import json
 
 ######################
-## global constants ##
+#  global constants  #
 ######################
 REQUIRED_FIELDS = ["passport", "first_name", "last_name",
                    "birth_date", "home", "entry_reason", "from"]
 
 ######################
-## global variables ##
+#  global variables  #
 ######################
 '''
 countries:
@@ -51,6 +51,7 @@ def is_more_than_x_years_ago(x, date_string):
 
     return (date - x_years_ago).total_seconds() < 0
 
+
 def read_file_into_dict(filename):
     """
     Read the content of file given by filename
@@ -62,6 +63,7 @@ def read_file_into_dict(filename):
     with open(filename) as data_file:
         data = json.load(data_file)
     return data
+
 
 def field_complete(case, field):
     """
@@ -87,6 +89,7 @@ def field_complete(case, field):
 
     return res
 
+
 def check_entry_info(case):
     """
     Check if the given case case has complete information
@@ -100,18 +103,16 @@ def check_entry_info(case):
             return False
     return True
 
+
 def location_known(location, countries):
     """
     Check if location location is known from countries
 
     :param location: the dictionary representation of a location to be checked
     :param countries: known countries given by the ministry
-    :return: True if lcoation is known, False otherwise
+    :return: True if location is known, False otherwise
     """
-	
-
-
-
+    # need to be clarified
 
 
 def check_location(case, countries):
@@ -132,7 +133,6 @@ def check_location(case, countries):
         if not location_known(case[field], countries):
             return False
     return True
-
 
 
 def decide(input_file, countries_file):
@@ -164,7 +164,7 @@ def valid_passport_format(passport_number):
     :return: Boolean; True if the format is valid, False otherwise
     """
     p = re.compile("^\w{5}-\w{5}-\w{5}-\w{5}-\w{5}$")
-	
+
     return bool(p.match(passport_number))
 
 
@@ -177,6 +177,7 @@ def valid_visa_format(visa_code):
     """
     p = re.compile("^\w{5}\s\w{5}$")
     return bool(p.match(visa_code))
+
 
 def valid_date_format(date_string):
     """
