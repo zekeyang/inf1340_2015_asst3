@@ -24,34 +24,47 @@ def test_returning():
     assert decide("test_returning_citizen.json", "countries.json") ==\
            ["Accept", "Accept", "Quarantine"]
 
-#========== Accept Case ===========
 
-def test_accept():
- """Travellers are accepted
+######################
+# Test main function #
+######################
 
-"""
-    assert decide('test_accept_citizen.json', "countries.json")==\
-           ["Accept", "Accept", "Accept"]
+# ========== Accept Case =====================================
 
+# scenario 1 :
 
- #========== Quarantine Case ===========
-def test_quarantine():
- """test quarantine:
-
- 1. citizen: coming from or travelling through a country with a medical advisory
- 2. visitor: coming from or travelling through a country with a medical advisory
-
- """
-#=========== Reject Case ============
- def test_reject():
- """test reject
-
- Visitor:
- 1. entry record is incomplete
- 2. entry record is unknown
- 4. invalid visa
- 5. A valid visa is less than two years old
+# scenario 2:
 
 
- """
+# ========== Quarantine Case =================================
 
+# scenario x
+
+# =========== Reject Case ====================================
+
+# scenario x
+
+# scenario x
+
+# scenario x
+
+
+########################
+# Test Helper function #
+########################
+
+# =========== is_more_than_x_years_ago ======================
+
+# =========== field_complete function =======================
+
+# =========== check_entry_info function =====================
+
+# =========== location_known function =======================
+
+# =========== check_location function ========================
+
+# =========== valid_passport_format function =================
+
+# =========== valid_passport_format function =================
+
+# =========== valid_visa_format function =====================
