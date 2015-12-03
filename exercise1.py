@@ -71,11 +71,13 @@ def projection(t, r):
     # return the position of each item
     # list all value in table t with the projected position
     projected_list = []
+    return_list = []
     for i in xrange(len(t[0])):
         for n in xrange(len(r)):
             if r[n] == t[0][i]:
                 projected_list.append(i)
-    return_list = [r[index] for index in projected_list]
+    for x in xrange(len(t)):
+        return_list.append([t[x][index] for index in projected_list])
     return return_list
 
 
@@ -93,3 +95,12 @@ def cross_product(t1, t2):
 
     return []
 
+
+# BELOW CODES ARE FOR TESTING PURPOSE, WILL BE REMOVED BEFORE SUBMISSION
+EMPLOYEES = [["Surname", "FirstName", "Age", "Salary"],
+            ["Smith", "Mary", 25, 2000],
+            ["Black", "Lucy", 40, 3000],
+             ["Verdi", "Nico", 36, 4500],
+             ["Smith", "Mark", 40, 3900]]
+
+print projection(EMPLOYEES, ["FirstName", "Salary"])
