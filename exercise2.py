@@ -127,35 +127,13 @@ def check_location(case, countries):
 
     location_fields = ['home', 'from']
     # Home and From exist, need to check if there is a visa
-    if field_complete(case, 'visa'):
-        location_fields.append('visa')
+    if field_complete(case, 'via'):
+        location_fields.append('via')
 
     for field in location_fields:
         if not location_known(case[field], countries):
             return False
     return True
-
-
-def decide(input_file, countries_file):
-    """
-    Decides whether a traveller's entry into Kanadia should be accepted
-
-    :param input_file: The name of a JSON formatted file that contains
-        cases to decide
-    :param countries_file: The name of a JSON formatted file that contains
-        country data, such as whether an entry or transit visa is required,
-        and whether there is currently a medical advisory
-    :return: List of strings. Possible values of strings are:
-        "Accept", "Reject", and "Quarantine"
-    """
-
-    # pre processing
-    cases = read_file_into_dict(input_file)
-    countries = read_file_into_dict(countries_file)
-
-    for case in cases:
-        info_completed = check_entry_info(case)
-        location_known = check_location(case, countries)
 
 
 def valid_passport_format(passport_number):
@@ -189,6 +167,28 @@ def valid_date_format(date_string):
 
     p = re.compile("%\d{4}-\d{2}-\d{2}$")
     return bool(p.match(date_string))
+
+
+def decide(input_file, countries_file):
+    """
+    Decides whether a traveller's entry into Kanadia should be accepted
+
+    :param input_file: The name of a JSON formatted file that contains
+        cases to decide
+    :param countries_file: The name of a JSON formatted file that contains
+        country data, such as whether an entry or transit visa is required,
+        and whether there is currently a medical advisory
+    :return: List of strings. Possible values of strings are:
+        "Accept", "Reject", and "Quarantine"
+    """
+
+    # pre processing
+    cases = read_file_into_dict(input_file)
+    countries = read_file_into_dict(countries_file)
+
+    for case in cases:
+        info_completed = check_entry_info(case)
+        location_known = check_location(case, countries)
 
 
 if __name__ == '__main__':
