@@ -31,24 +31,6 @@ containing the following keys:
 "transit_visa_required","medical_advisory"
 '''
 COUNTRIES = None
-#####################
-# Test JSON ##
-#####################
-import json
-accept = {
-           "passport": "JMZ0S-89IA9-OTCLY-MQILJ-P7CTY",
-           "first_name": "ELIZABETH",
-           "last_name": "WENDT",
-           "birth_date": "1958-08-22",
-           "home": "{"city": "Bala","region": "ON","country": "KAN"}",
-            "entry_reason": "Accept",
-            "from": "{"city": "Weasel","region": "Rodent","country": "BRD"}"
-        }
-
-json_encoded = json.dumps(accept)
-
-print json_encoded
-
 
 #####################
 # HELPER FUNCTIONS ##
@@ -131,7 +113,7 @@ def location_known(location, countries):
     :param countries: known countries given by the ministry
     :return: True if location is known, False otherwise
     """
-    # need to be clarified
+    return location in countries.keys()
 
 
 def check_location(case, countries):

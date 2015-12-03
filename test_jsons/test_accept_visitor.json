@@ -1,0 +1,17 @@
+[
+  {
+    "passport": "DJUGN-KSIG7-JSG34-S8SGJ-MSJGU",
+    "first_name": "Leo",
+    "last_name": "Leburt",
+    "birth_date": "1975-09-12",
+    "home": {
+      "city": "Bala",
+      "region": "ON",
+      "country": "ALB"
+    },
+    "entry_reason": "visiting",
+    "from": {
+      "city": "Weasel",
+      "region": "Rodent",
+      "country": "BRD"
+    }
