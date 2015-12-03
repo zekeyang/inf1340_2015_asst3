@@ -154,7 +154,7 @@ def valid_visa_format(visa_code):
     :return: Boolean; True if the format is valid, False otherwise
 
     """
-    p = re.compile("^\w{5}\s\w{5}$")
+    p = re.compile("^\w{5} \w{5}$")
     return bool(p.match(visa_code))
 
 
@@ -165,9 +165,13 @@ def valid_date_format(date_string):
     :return: Boolean True if the format is valid, False otherwise
     """
 
-    p = re.compile("%\d{4}-\d{2}-\d{2}$")
+    p = re.compile("^\d{4}-\d{2}-\d{2}$")
     return bool(p.match(date_string))
 
+
+#################
+# Main Function #
+#################
 
 def decide(input_file, countries_file):
     """
