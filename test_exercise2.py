@@ -9,7 +9,9 @@ __copyright__ = "2015 Piaoyao Shi & Zixiao Yang & Ming Fu"
 __status__ = "Prototype"
 
 # imports one per line
-import json
+
+from exercise2 import *
+import os
 
 DIR = "test_jsons/"
 os.chdir(DIR)
