@@ -15,13 +15,13 @@ import datetime
 import json
 
 ######################
-#  global constants  #
+# global constants  #
 ######################
 REQUIRED_FIELDS = ["passport", "first_name", "last_name",
                    "birth_date", "home", "entry_reason", "from"]
 
 ######################
-#  global variables  #
+# global variables  #
 ######################
 '''
 countries:
@@ -31,11 +31,30 @@ containing the following keys:
 "transit_visa_required","medical_advisory"
 '''
 COUNTRIES = None
+#####################
+# Test JSON ##
+#####################
+import json
+accept = {
+           "passport": "JMZ0S-89IA9-OTCLY-MQILJ-P7CTY",
+           "first_name": "ELIZABETH",
+           "last_name": "WENDT",
+           "birth_date": "1958-08-22",
+           "home": "{"city": "Bala","region": "ON","country": "KAN"}",
+            "entry_reason": "Accept",
+            "from": "{"city": "Weasel","region": "Rodent","country": "BRD"}"
+        }
+
+json_encoded = json.dumps(accept)
+
+print json_encoded
 
 
 #####################
 # HELPER FUNCTIONS ##
 #####################
+
+
 def is_more_than_x_years_ago(x, date_string):
     """
     Check if date is less than x years ago.
@@ -114,6 +133,7 @@ def location_known(location, countries):
     """
     # need to be clarified
 
+
 def check_location(case, countries):
     """
     Check if the locations in a given case case are known
@@ -184,9 +204,10 @@ def valid_date_format(date_string):
     :param date_string: date to be checked
     :return: Boolean True if the format is valid, False otherwise
     """
-    
+
     p = re.compile("%\d{4}-\d{2}-\d{2}$")
     return bool(p.match(date_string))
+
 
 if __name__ == '__main__':
     decide('test_returning_citizen.json', 'countries_2.json')

@@ -9,7 +9,7 @@ __copyright__ = "2015 Piaoyao Shi & Zixiao Yang & Ming Fu"
 __status__ = "Prototype"
 
 # imports one per line
-import...
+import json
 
 DIR = "test_jsons/"
 os.chdir(DIR)
@@ -20,25 +20,19 @@ def test_returning():
     Travellers are returning to KAN.
     """
     assert decide("test_returning_citizen.json", "countries.json") ==\
-        ["Accept", "Accept", "Quarantine"]
+           ["Accept", "Accept", "Quarantine"]
 
+#========== Accept Case ===========
 
 def test_accept():
- """test accept:
- 1. citizen
-    a. A valid passport
-    b. home country is Kanadia  (KAN)
-    c. accept mismatch between uppercase and lowercase
+ """Travellers are accepted
 
- 2. visitor
-     a. complete entry record
-     b. location mentioned in the entry record is known
-     c. home country is not Kanadia  (KAN)
-     d. has a passport from a country from which a visitor visa is required
-     e. has a valid visa
-     f. accept mismatch between uppercase and lowercase
+"""
+    assert decide('test_accept_citizen.json', "countries.json")==\
+           ["Accept", "Accept", "Accept"]
 
- """
+
+ #========== Quarantine Case ===========
 def test_quarantine():
  """test quarantine:
 
@@ -46,7 +40,7 @@ def test_quarantine():
  2. visitor: coming from or travelling through a country with a medical advisory
 
  """
-
+#=========== Reject Case ============
  def test_reject():
  """test reject
 
