@@ -92,15 +92,25 @@ def cross_product(t1, t2):
 
 
     """
+    t1[0].extend(t2[0])
+    #for n in xrange(1, len(t2)):
+    t1[1].extend(t2[1])
+    print t1[1]
+    t1[2].extend(t2[1])
 
-    return []
+
+
+    return t1
 
 
 # BELOW CODES ARE FOR TESTING PURPOSE, WILL BE REMOVED BEFORE SUBMISSION
-EMPLOYEES = [["Surname", "FirstName", "Age", "Salary"],
-            ["Smith", "Mary", 25, 2000],
-            ["Black", "Lucy", 40, 3000],
-             ["Verdi", "Nico", 36, 4500],
-             ["Smith", "Mark", 40, 3900]]
+R1 = [["Employee", "Department"],
+      ["Smith", "sales"],
+      ["Black", "production"],
+      ["White", "production"]]
 
-print projection(EMPLOYEES, ["FirstName", "Salary"])
+R2 = [["Department", "Head"],
+      ["production", "Mori"],
+      ["sales", "Brown"]]
+
+print cross_product(R1, R2)
