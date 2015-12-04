@@ -53,7 +53,12 @@ def selection(t, f):
                 HOW TO PASS AND USE ARGUMENT LIKE row[-1] > 3 ?
     """
 
-    return []
+    return_table = []
+    return_table.append(t[0])
+    for i in xrange(1, len(t)):
+        if f(t[i]):
+            return_table.append(t[i])
+    return return_table
 
 
 def projection(t, r):
