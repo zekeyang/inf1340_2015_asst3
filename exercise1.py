@@ -92,15 +92,13 @@ def cross_product(t1, t2):
 
 
     """
-    t1[0].extend(t2[0])
-    #for n in xrange(1, len(t2)):
-    t1[1].extend(t2[1])
-    print t1[1]
-    t1[2].extend(t2[1])
+    return_list = []
+    for n in xrange(1, len(t1)):
+        for i in xrange(1, len(t2)):
+            return_list.append(t1[n]+t2[i])
+    return_list.insert(0, t1[0] + t2[0])
 
-
-
-    return t1
+    return return_list
 
 
 # BELOW CODES ARE FOR TESTING PURPOSE, WILL BE REMOVED BEFORE SUBMISSION
