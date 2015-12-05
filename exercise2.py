@@ -53,7 +53,7 @@ def is_more_than_x_years_ago(x, date_string):
     return (date - x_years_ago).total_seconds() < 0
 
 
-def read_file_into_dict(filename):
+def read_file(filename):
     """
     Read the content of file given by filename
 
@@ -113,7 +113,7 @@ def location_known(location, countries):
     :param countries: known countries given by the ministry
     :return: True if location is known, False otherwise
     """
-    return location in countries.keys()
+    return location["country"] in countries.keys()
 
 
 def check_location(case, countries):
@@ -153,6 +153,7 @@ def check_home_country(case):
         return home['country'].upper() == 'KAN' or home['country'].upper() == 'KANADIA'
     return res
 
+
 def check_visa(case, countries):
     """
 
@@ -168,6 +169,7 @@ def check_visa(case, countries):
                 and not is_more_than_x_years_ago(2, case['visa']['date'])
 
     return res
+
 
 def check_medical(case, countries):
     """
@@ -235,12 +237,6 @@ def decide(input_file, countries_file):
     """
 
     # pre processing
-    cases = read_file_into_dict(input_file)
-    countries = read_file_into_dict(countries_file)
-
-    for case in cases:
-        info_completed = check_entry_info(case)
-        location_known = check_location(case, countries)
 
 
 if __name__ == '__main__':
