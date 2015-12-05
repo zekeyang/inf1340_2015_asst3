@@ -53,5 +53,5 @@ def is_more_than_x_years_ago(x, date_string):
     return (date - x_years_ago).total_seconds() < 0
 
 
-if __name__ == '__main__':
-    decide('test_returning_citizen.json', 'countries_2.json')
+
+
