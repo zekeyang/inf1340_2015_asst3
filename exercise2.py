@@ -136,6 +136,23 @@ def check_location(case, countries):
     return True
 
 
+def check_home_country(case):
+    """"
+    Check
+
+    :parm case: the dictionary representation of the case to be checked
+    :return: True if the home country associated with case is name: Kanadia code: KAN
+    """
+
+    res = False
+    home = {}
+
+    if field_complete(case, 'home'):
+        home = case['home']
+    if 'country' in home:
+        return home['country'].upper() == 'KAN' or home['country'].upper() == 'KANADIA'
+    return res
+
 def valid_passport_format(passport_number):
     """
     Checks whether a pasport number is five sets of five alpha-number characters separated by dashes
