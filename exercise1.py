@@ -34,7 +34,7 @@ class UnknownAttributeException(Exception):
     """
     Raised when attempting set operations on a table
     that does not contain the named attribute
-    """
+    """0.00
     pass
 
 
@@ -49,8 +49,7 @@ def selection(t, f):
     > def f(row): row[-1] > 3
     > select(R, f)
     [["A", "B", "C"], [4, 5, 6]]
-    QUESTION:   ARE WE CONSIDERING OPERATOR "AND", "OR" AND COMBINATION OF "AND" AND "OR"?
-                HOW TO PASS AND USE ARGUMENT LIKE row[-1] > 3 ?
+    NOTE: NameError exception
     """
 
     return_table = []
@@ -81,9 +80,12 @@ def projection(t, r):
         for n in xrange(len(r)):
             if r[n] == t[0][i]:
                 projected_list.append(i)
-    for x in xrange(len(t)):
-        return_list.append([t[x][index] for index in projected_list])
-    return return_list
+    if projected_list:
+        for x in xrange(len(t)):
+            return_list.append([t[x][index] for index in projected_list])
+        return return_list
+    else:
+        return None
 
 
 def cross_product(t1, t2):
@@ -107,6 +109,24 @@ def cross_product(t1, t2):
 
 
 # BELOW CODES ARE FOR TESTING PURPOSE, WILL BE REMOVED BEFORE SUBMISSION
+
+def filter_employees(row):
+    """
+    Check if employee represented by row
+    is AT LEAST 30 years old and makes
+    MORE THAN 3500.
+    :param row: A List in the format:
+        [{Surname}, {FirstName}, {Age}, {Salary}]
+    :return: True if the row satisfies the condition.
+    """
+    return row[-2] >= 30 and row[-1] > 3500
+
+EMPLOYEES = [["Surname", "FirstName", "Age", "Salary"],
+             ["Smith", "Mary", 25, 2000],
+             ["Black", "Lucy", 40, 3000],
+             ["Verdi", "Nico", 36, 4500],
+             ["Smith", "Mark", 40, 3900]]
+
 R1 = [["Employee", "Department"],
       ["Smith", "sales"],
       ["Black", "production"],
@@ -116,4 +136,4 @@ R2 = [["Department", "Head"],
       ["production", "Mori"],
       ["sales", "Brown"]]
 
-print cross_product(R1, R2)
+print projection(EMPLOYEES, ["Surname", "FirstName"])
