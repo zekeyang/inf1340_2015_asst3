@@ -169,6 +169,16 @@ def check_visa(case, countries):
 
     return res
 
+def check_medical(case, countries):
+    """
+
+    Return True if the case needs to send to quarantine, False otherwise.
+    """
+
+    # list of code with medical_advisory
+    medical_countries = [x for x in countries if countries[x]['medical_advisory']]
+
+
 def valid_passport_format(passport_number):
     """
     Checks whether a pasport number is five sets of five alpha-number characters separated by dashes
