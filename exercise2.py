@@ -178,6 +178,11 @@ def check_medical(case, countries):
     # list of code with medical_advisory
     medical_countries = [x for x in countries if countries[x]['medical_advisory']]
 
+    # list of codes
+    countries_codes = [case[x]['country'] for x in case if x in ['home', 'via', 'from']]
+    medical = [x for x in countries_codes if x in medical_countries]
+    return medical == [] or False
+
 
 def valid_passport_format(passport_number):
     """
