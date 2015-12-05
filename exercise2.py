@@ -237,7 +237,28 @@ def decide(input_file, countries_file):
     """
 
     # pre processing
-    # this is a test commit
+    cases = read_file(input_file) # list of dict
+    countries = read_file(countries_file) # dict of dict
+    res = []
+
+    for case in cases:
+        is_info_completed = check_entry_info(case)
+        is_location_known = check_location(case, countries)
+        is_home_country = check_home_country(case)
+        is_valid_visa = check_visa(case, countries)
+        send_quarantine = check_medical(case, countries)
+
+    for x in [is_info_completed, is_location_known, is_home_country, is_valid_visa]:
+        if x:
+            res.append('Accept')
+        else:
+            res.append('Reject')
+    if send_quarantine:
+        res.append('Quarantine')
+    else:
+        res.append('Accpet')
+    return res
+
 
 
 if __name__ == '__main__':

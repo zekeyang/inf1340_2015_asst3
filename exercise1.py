@@ -34,7 +34,7 @@ class UnknownAttributeException(Exception):
     """
     Raised when attempting set operations on a table
     that does not contain the named attribute
-    """0.00
+    """
     pass
 
 
@@ -83,7 +83,7 @@ def projection(t, r):
     if projected_list:
         for x in xrange(len(t)):
             return_list.append([t[x][index] for index in projected_list])
-        return return_list
+        return remove_duplicates(return_list)
     else:
         return None
 
@@ -105,7 +105,7 @@ def cross_product(t1, t2):
             return_list.append(t1[n]+t2[i])
     return_list.insert(0, t1[0] + t2[0])
 
-    return return_list
+    return remove_duplicates(return_list)
 
 
 # BELOW CODES ARE FOR TESTING PURPOSE, WILL BE REMOVED BEFORE SUBMISSION
