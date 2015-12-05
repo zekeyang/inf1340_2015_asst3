@@ -153,6 +153,22 @@ def check_home_country(case):
         return home['country'].upper() == 'KAN' or home['country'].upper() == 'KANADIA'
     return res
 
+def check_visa(case, countries):
+    """
+
+
+    """
+    res = False
+    if field_complete(case, 'entry_reason') and field_complete(case, 'from') and \
+       location_known(case['from'], countries):
+        from_country_code = case['from']['country']
+        visa_required = countries[from_country_code]['visitor_visa_required']
+        if int(visa_required) > 0:
+            res = field_complete(case, 'visa')  and valid_date_format(case['visa']['date']) \
+                and not is_more_than_x_years_ago(2, case['visa']['date'])
+
+    return res
+
 def valid_passport_format(passport_number):
     """
     Checks whether a pasport number is five sets of five alpha-number characters separated by dashes
