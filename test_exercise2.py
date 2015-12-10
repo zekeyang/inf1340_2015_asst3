@@ -13,8 +13,7 @@ __status__ = "Prototype"
 from exercise2 import *
 import os
 
-#DIR = os.getcwd()
-DIR = '/Users/Zhi/Desktop/INF1340/inf1340_2015_asst3'  # problem need to fixed.
+DIR = os.getcwd()
 DIR += '/test_jsons'
 os.chdir(DIR)
 
