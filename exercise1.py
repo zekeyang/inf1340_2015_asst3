@@ -142,6 +142,8 @@ def cross_product(t1, t2):
 
         return_list.insert(0, t1[0] + t2[0])
         return_list = remove_duplicates(return_list)
+        if len(return_list) < 2:
+            return_list = None
 
     return return_list
 
@@ -175,4 +177,9 @@ R2 = [["Department", "Head"],
       ["production", "Mori"],
       ["sales", "Brown"]]
 
-print projection(EMPLOYEES, ["Surname", "FirstName"])
+R3 = [["Title_1", "Title_2", "Title_3"]]
+
+
+#print projection(EMPLOYEES, ["Surname", "FirstName"])
+
+print cross_product(R1, R3)

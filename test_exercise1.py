@@ -32,6 +32,8 @@ R2 = [["Department", "Head"],
       ["production", "Mori"],
       ["sales", "Brown"]]
 
+R3 = [["Title_1", "Title_2", "Title_3"]]
+
 
 #####################
 # HELPER FUNCTIONS ##
