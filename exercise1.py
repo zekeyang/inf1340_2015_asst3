@@ -57,13 +57,15 @@ def selection(t, f):
 
     return_table = None
     if t and t[0]:
+        # set header
         return_table = [t[0]]
         for i in xrange(1, len(t)):
+            # adding one row at a time if applicable
             if f(t[i]):
                 return_table.append(t[i])
-
+        # check if the table is empty
         if len(return_table) == 1:
-            # only header
+            # header only means empty, return nothing
             return_table = None
         else:
             return_table = remove_duplicates(return_table)
@@ -106,17 +108,21 @@ def projection(t, r):
 
     if t and t[0]:
         check = ["UnknownColumn" for attr in r if attr not in t[0]]
+        # check if named column was exist in the table
+        # if not then raise error
         if check:
             raise UnknownAttributeException
 
         indices = [t[0].index(attr) for attr in r]
         res = []
+        # adding rows
         for k in range(len(t)):
             res.append([t[k][i] for i in indices])
         if not res:
             res = None
         else:
             res = remove_duplicates(res)
+    # if empty table, return nothing
     if len(res) < 2:
         res = None
     return res
@@ -133,7 +139,6 @@ def cross_product(t1, t2):
     > R1 = [["A", "B"], [1,2], [3,4]]
     > R2 = [["C", "D"], [5,6]]
     [["A", "B", "C", "D"], [1, 2, 5, 6], [3, 4, 5, 6]]
-
 
     """
     return_list = None
