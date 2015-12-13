@@ -86,21 +86,7 @@ def projection(t, r):
     # check if each item in r exists in table t schema
     # return the position of each item
     # list all value in table t with the projected position
-    """
-    res=[]
-    projected_list = []
-    return_list = []
-    for i in xrange(len(t[0])):
-        for n in xrange(len(r)):
-            if r[n] == t[0][i]:
-                projected_list.append(i)
-    if projected_list:
-        for x in xrange(len(t)):
-            return_list.append([t[x][index] for index in projected_list])
-        return remove_duplicates(return_list)
-    else:
-        return None
-    """
+
 
     res = None
 
@@ -151,41 +137,3 @@ def cross_product(t1, t2):
 
     return return_list
 
-
-# BELOW CODES ARE FOR TESTING PURPOSE, WILL BE REMOVED BEFORE SUBMISSION
-# no need to remove, just move this to the test file.
-
-def filter_employees(row):
-    """
-    Check if employee represented by row
-    is AT LEAST 30 years old and makes
-    MORE THAN 3500.
-    :param row: A List in the format:
-        [{Surname}, {FirstName}, {Age}, {Salary}]
-    :return: True if the row satisfies the condition.
-    """
-    return row[-2] >= 30 and row[-1] > 3500
-
-EMPLOYEES = [["Surname", "FirstName", "Age", "Salary"],
-             ["Smith", "Mary", 25, 2000],
-             ["Black", "Lucy", 40, 3000],
-             ["Verdi", "Nico", 36, 4500],
-             ["Smith", "Mark", 40, 3900]]
-
-R1 = [["Employee", "Department"],
-      ["Smith", "sales"],
-      ["Black", "production"],
-      ["White", "production"]]
-
-R2 = [["Department", "Head"],
-      ["production", "Mori"],
-      ["sales", "Brown"]]
-
-R3 = [["Title_1", "Title_2", "Title_3"]]
-
-
-#print projection(R3, ["Title_"])
-
-#print cross_product(R1, R3)
-
-#print selection(R3, filter_employees)
