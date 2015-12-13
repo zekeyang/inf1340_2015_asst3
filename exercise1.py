@@ -187,3 +187,5 @@ R3 = [["Title_1", "Title_2", "Title_3"]]
 #print projection(R3, ["Title_"])
 
 #print cross_product(R1, R3)
+
+#print selection(R3, filter_employees)

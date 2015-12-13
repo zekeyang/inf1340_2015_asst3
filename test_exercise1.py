@@ -23,6 +23,8 @@ EMPLOYEES = [["Surname", "FirstName", "Age", "Salary"],
              ["Verdi", "Nico", 36, 4500],
              ["Smith", "Mark", 40, 3900]]
 
+EMPLOYEES_EMPTY = [["Surname", "FirstName", "Age", "Salary"]]
+
 R1 = [["Employee", "Department"],
       ["Smith", "sales"],
       ["Black", "production"],
@@ -67,7 +69,7 @@ def filter_employees(row):
 
 def test_selection():
     """
-    Test select operation.
+    Test select operation with a normal table
     """
 
     result = [["Surname", "FirstName", "Age", "Salary"],
@@ -75,6 +77,17 @@ def test_selection():
               ["Smith", "Mark", 40, 3900]]
 
     assert is_equal(result, selection(EMPLOYEES, filter_employees))
+
+
+def test_selection_empty():
+    """
+    Test select operation with an empty table
+    As required, the function shall return None
+    """
+
+    result = None
+
+    assert selection(EMPLOYEES_EMPTY, filter_employees) == result
 
 
 def test_projection():
@@ -94,6 +107,7 @@ def test_projection():
 def test_projection_empty():
     """
     Test projection operation with an empty table
+    As required, the function shall return None
     """
 
     result = None
