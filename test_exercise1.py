@@ -84,10 +84,7 @@ def test_selection_empty():
     Test select operation with an empty table
     As required, the function shall return None
     """
-
-    result = None
-
-    assert selection(EMPLOYEES_EMPTY, filter_employees) == result
+    assert selection(EMPLOYEES_EMPTY, filter_employees) is None
 
 
 def test_projection():
@@ -109,10 +106,7 @@ def test_projection_empty():
     Test projection operation with an empty table
     As required, the function shall return None
     """
-
-    result = None
-
-    assert result == projection(R3, ["Title_3"])
+    assert projection(R3, ["Title_3"]) is None
 
 
 def test_projection_unknown_attribute_exception():
@@ -147,7 +141,4 @@ def test_cross_product_empty():
     Test cross product operation with one empty table
     As required, the function shall return None
     """
-
-    result = None
-
-    assert cross_product(R1, R3) == result
+    assert cross_product(R1, R3) is None
