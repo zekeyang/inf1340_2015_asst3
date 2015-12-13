@@ -87,6 +87,7 @@ def projection(t, r):
     # return the position of each item
     # list all value in table t with the projected position
     """
+    res=[]
     projected_list = []
     return_list = []
     for i in xrange(len(t[0])):
@@ -109,12 +110,15 @@ def projection(t, r):
             raise UnknownAttributeException
 
         indices = [t[0].index(attr) for attr in r]
+        res = []
         for k in range(len(t)):
             res.append([t[k][i] for i in indices])
         if not res:
             res = None
         else:
             res = remove_duplicates(res)
+    if len(res) < 2:
+        res = None
     return res
 
 
@@ -180,6 +184,6 @@ R2 = [["Department", "Head"],
 R3 = [["Title_1", "Title_2", "Title_3"]]
 
 
-#print projection(EMPLOYEES, ["Surname", "FirstName"])
+#print projection(R3, ["Title_"])
 
-print cross_product(R1, R3)
+#print cross_product(R1, R3)

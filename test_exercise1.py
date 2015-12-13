@@ -10,7 +10,7 @@ __author__ = 'Piaoyao Shi & Zixiao Yang & Ming Fu '
 __email__ = "piaoyao.shi@mail.utoronto.ca & zeke.yang@mail.utoronto.ca & mm.fu@mail.utoronto.ca"
 __copyright__ = "2015 Piaoyao Shi & Zixiao Yang & Ming Fu"
 
-from exercise1 import selection, projection, cross_product
+from exercise1 import selection, projection, cross_product, UnknownAttributeException
 
 
 ###########
@@ -79,7 +79,7 @@ def test_selection():
 
 def test_projection():
     """
-    Test projection operation.
+    Test projection operation with normal table
     """
 
     result = [["Surname", "FirstName"],
@@ -91,9 +91,30 @@ def test_projection():
     assert is_equal(result, projection(EMPLOYEES, ["Surname", "FirstName"]))
 
 
+def test_projection_empty():
+    """
+    Test projection operation with an empty table
+    """
+
+    result = None
+
+    assert result == projection(R3, ["Title_3"])
+
+
+def test_projection_unknown_attribute_exception():
+    """
+    Test projection operation with raising UnknownAttributeException
+    """
+
+    try:
+        projection(EMPLOYEES, ["No_Such_Name"])
+    except UnknownAttributeException:
+        assert True
+
+
 def test_cross_product():
     """
-    Test cross product operation.
+    Test cross product operation, with two normal tables
     """
 
     result = [["Employee", "Department", "Department", "Head"],
@@ -105,3 +126,14 @@ def test_cross_product():
               ["White", "production", "sales", "Brown"]]
 
     assert is_equal(result, cross_product(R1, R2))
+
+
+def test_cross_product_empty():
+    """
+    Test cross product operation with one empty table
+    As required, the function shall return None
+    """
+
+    result = None
+
+    assert cross_product(R1, R3) == result
