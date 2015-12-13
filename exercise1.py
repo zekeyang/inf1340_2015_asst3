@@ -38,6 +38,19 @@ class UnknownAttributeException(Exception):
     pass
 
 
+def check_table_lens(res):
+    """
+    :return:
+    """
+    if len(res) <= 1:
+        res = None
+    return res
+
+##################
+# Main Functions #
+##################
+
+
 def selection(t, f):
     """
     Return the result of performing operation f on table t.
@@ -55,21 +68,15 @@ def selection(t, f):
     NOTE: NameError exception ?? why we need to name error ?
     """
 
-    return_table = None
+    res = None
     if t and t[0]:
-        # set header
-        return_table = [t[0]]
+        res = [t[0]]
         for i in xrange(1, len(t)):
-            # adding one row at a time if applicable
             if f(t[i]):
-                return_table.append(t[i])
-        # check if the table is empty
-        if len(return_table) == 1:
-            # header only means empty, return nothing
-            return_table = None
-        else:
-            return_table = remove_duplicates(return_table)
-    return return_table
+                res.append(t[i])
+        res = remove_duplicates(res)
+        res = check_table_lens(res)
+    return res
 
 
 def projection(t, r):
@@ -89,28 +96,22 @@ def projection(t, r):
     # return the position of each item
     # list all value in table t with the projected position
 
-
     res = None
 
     if t and t[0]:
         check = ["UnknownColumn" for attr in r if attr not in t[0]]
-        # check if named column was exist in the table
-        # if not then raise error
         if check:
             raise UnknownAttributeException
 
         indices = [t[0].index(attr) for attr in r]
         res = []
-        # adding rows
         for k in range(len(t)):
             res.append([t[k][i] for i in indices])
         if not res:
             res = None
         else:
             res = remove_duplicates(res)
-    # if empty table, return nothing
-    if len(res) < 2:
-        res = None
+            res = check_table_lens(res)
     return res
 
 
@@ -126,19 +127,20 @@ def cross_product(t1, t2):
     > R2 = [["C", "D"], [5,6]]
     [["A", "B", "C", "D"], [1, 2, 5, 6], [3, 4, 5, 6]]
 
+
     """
-    return_list = None
+    res = None
 
     if t1 and t2:
-        return_list = []
+        res = []
         for n in xrange(1, len(t1)):
             for i in xrange(1, len(t2)):
-                return_list.append(t1[n] + t2[i])
+                res.append(t1[n] + t2[i])
 
-        return_list.insert(0, t1[0] + t2[0])
-        return_list = remove_duplicates(return_list)
-        if len(return_list) < 2:
-            return_list = None
+        res.insert(0, t1[0] + t2[0])
+        res = remove_duplicates(res)
+        res = check_table_lens(res)
 
-    return return_list
+    return res
+
 
