@@ -221,3 +221,51 @@ def valid_date_format(date_string):
 
     p = re.compile("^\d{4}-\d{2}-\d{2}$")
     return bool(p.match(date_string))
+
+#################
+# Main Function #
+#################
+
+
+def decide(input_file, countries_file):
+    """
+    Decides whether a traveller's entry into Kanadia should be accepted
+
+    :param input_file: The name of a JSON formatted file that contains
+        cases to decide
+    :param countries_file: The name of a JSON formatted file that contains
+        country data, such as whether an entry or transit visa is required,
+        and whether there is currently a medical advisory
+    :return: List of strings. Possible values of strings are:
+        "Accept", "Reject", and "Quarantine"
+    """
+
+    # pre processing
+    cases = read_file(input_file)  # list of dict
+    countries = read_file(countries_file)  # dict of dict
+    decisions = ['Reject', 'Accept', 'Quarantine']
+    res = []
+
+    for case in cases:
+        case_decision = decisions[0]
+        is_info_completed = check_entry_info(case)
+
+        if is_info_completed:
+            is_location_known = check_location(case, countries)
+            if is_location_known:
+                is_home_country = check_home_country(case)
+                if is_home_country:
+                    is_valid_visa = check_visa(case, countries)
+                    if is_valid_visa:
+                        send_quarantine = check_medical(case, countries)
+                        if send_quarantine:
+                            case_decision = decisions[2]
+                        else:
+                            case_decision = decisions[1]
+        res.append(case_decision)
+
+    return res
+
+
+if __name__ == '__main__':
+    decide('test_returning_citizen.json', 'countries.json')
