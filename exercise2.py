@@ -91,6 +91,106 @@ def field_complete(case, field):
     return res
 
 
+def check_entry_info(case):
+    """
+    Check if the given case case has complete information
+
+    :param case: the dictionary representation of the case to be checked
+    :return: True if given case has all required information, False otherwise
+    """
+
+    for required_field in REQUIRED_FIELDS:
+        if not field_complete(case, required_field):
+            return False
+    return True
+
+
+def location_known(location, countries):
+    """
+    Check if location location is known from countries
+
+    :param location: the dictionary representation of a location to be checked
+    :param countries: known countries given by the ministry
+    :return: True if location is known, False otherwise
+    """
+    return location["country"] in countries.keys() or location['country'].upper() == 'KAN' \
+        or location['country'].upper() == 'KANADIA'
+
+
+def check_location(case, countries):
+    """
+    Check if the locations in a given case case are known
+
+    :param case: the dictionary representation of the case to be checked
+    :param countries: the dictionary representation of the countries info
+    :return: True if all locations are known, False otherwise
+    """
+
+    location_fields = ['home', 'from']
+    # Home and From exist, need to check if there is a visa
+    if field_complete(case, 'via'):
+        location_fields.append('via')
+
+    for field in location_fields:
+        if not location_known(case[field], countries):
+            return False
+    return True
+
+
+def check_home_country(case):
+    """"
+    Check
+
+    :param case: the dictionary representation of the case to be checked
+    :return: True if the home country associated with case is name: Kanadia code: KAN
+    """
+
+    res = False
+    home = {}
+
+    if field_complete(case, 'home'):
+        home = case['home']
+    if 'country' in home:
+        return home['country'].upper() == 'KAN' or home['country'].upper() == 'KANADIA'
+    return res
+
+
+def check_visa(case, countries):
+    """
+    Return True if visa check is passed, False otherwise
+
+    """
+    res = False
+    if field_complete(case, 'entry_reason') and field_complete(case, 'from') and \
+       location_known(case['from'], countries):
+        if case['entry_reason'].upper() == 'VISIT':
+            from_country_code = case['from']['country']
+            visa_required = countries[from_country_code]['visitor_visa_required']
+            if int(visa_required) > 0:
+                res = field_complete(case, 'visa') and valid_date_format(case['visa']['date']) \
+                    and not is_more_than_x_years_ago(2, case['visa']['date'])
+        else:
+            # entry reason returning, visa check passed
+            res = True
+
+    return res
+
+
+def check_medical(case, countries):
+    """
+    Pre-condition: all locations known
+    Return True if the case needs to send to quarantine, False otherwise.
+    """
+
+    # list of code with medical_advisory
+    medical_countries = [x for x in countries if countries[x]['medical_advisory']]
+
+    # list of codes
+    countries_codes = [case[x]['country'] for x in case if x in ['home', 'via', 'from']]
+    medical = [x for x in countries_codes if x in medical_countries]
+    return medical != []
+
+
 def valid_passport_format(passport_number):
     """
     Checks whether a passport number is five sets of five alpha-number characters separated by dashes
