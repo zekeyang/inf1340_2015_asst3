@@ -38,9 +38,11 @@ class UnknownAttributeException(Exception):
     pass
 
 
-def check_table_lens(res):
+def check_is_empty(res):
     """
-    :return:
+    Return None if the table res is empty or only has a header.
+    :param res: a list
+    :return:res: None object
     """
     if len(res) <= 1:
         res = None
@@ -75,7 +77,7 @@ def selection(t, f):
             if f(t[i]):
                 res.append(t[i])
         res = remove_duplicates(res)
-        res = check_table_lens(res)
+        res = check_is_empty(res)
     return res
 
 
@@ -111,7 +113,7 @@ def projection(t, r):
             res = None
         else:
             res = remove_duplicates(res)
-            res = check_table_lens(res)
+            res = check_is_empty(res)
     return res
 
 
@@ -139,7 +141,7 @@ def cross_product(t1, t2):
 
         res.insert(0, t1[0] + t2[0])
         res = remove_duplicates(res)
-        res = check_table_lens(res)
+        res = check_is_empty(res)
 
     return res
 
