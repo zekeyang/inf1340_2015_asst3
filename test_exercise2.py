@@ -136,7 +136,17 @@ def test_valid_visa_format():
     """
     Checks whether a visa code is two groups of five alphanumeric characters
     """
-
+    assert_false(valid_visa_format(''))
+    assert_false(valid_visa_format('1234567890'))
+    assert_false(valid_visa_format('12345678901'))
+    assert_false(valid_visa_format('abcdefghij'))
+    assert_false(valid_visa_format('abcdefghijk'))
+    assert_false(valid_visa_format('12345abcd!'))
+    assert_false(valid_visa_format('12345-abcde'))
+    assert_false(valid_visa_format('1a2b3c4d5e'))
+    assert_false(valid_visa_format('12345 abcde'))
+    assert valid_visa_format('1234a bcde5')
+    assert valid_visa_format('1a2b3 c4d5e')
 
 # =========== valid_date_format function =====================
 
@@ -146,3 +156,19 @@ def test_valid_date_format():
     Checks whether a date has the format yyyy-mm-dd in numbers
     """
 
+    assert_false(valid_date_format(''))
+    assert_false(valid_date_format('15-12-16'))
+    assert_false(valid_date_format('12-16-2015'))
+    assert_false(valid_date_format('12-16-15'))
+    assert_false(valid_date_format('16-12-2015'))
+    assert_false(valid_date_format('16-12-15'))
+    assert_false(valid_date_format('2015.12.16'))
+    assert_false(valid_date_format('2015/12/16'))
+    assert_false(valid_date_format('2015 12 16'))
+    assert_false(valid_date_format('December 16,2015'))
+    assert_false(valid_date_format('Dec.16, 2015'))
+    assert_false(valid_date_format('2015-December-16'))
+    assert_false(valid_date_format('2015-Dec.16'))
+    assert valid_date_format('2015-12-16')
+    assert valid_date_format('2016-01-01')
+    assert valid_date_format('9768e-ab1de-8bc14-a3c4e-b12de')
