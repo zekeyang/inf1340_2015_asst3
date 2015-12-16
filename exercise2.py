@@ -170,10 +170,10 @@ def check_visa(case, countries):
     """
 
     res = False
-    if field_complete(case, 'entry_reason') and field_complete(case, 'from') and \
-       location_known(case['from'], countries):
+    if field_complete(case, 'entry_reason') and field_complete(case, 'home') and \
+       location_known(case['home'], countries):
         if case['entry_reason'].upper() == 'VISIT':
-            from_country_code = case['from']['country']
+            from_country_code = case['home']['country']
             visa_required = countries[from_country_code]['visitor_visa_required']
             if int(visa_required) > 0:
                 res = field_complete(case, 'visa') \
@@ -271,13 +271,14 @@ def decide(input_file, countries_file):
             if is_location_known:                                      # execute if location is known
                 is_home_country = check_home_country(case)
                 if is_home_country:                                    # execute if home country is Kanadia
-                    is_valid_visa = check_visa(case, countries)
-                    if is_valid_visa:                                  # execute if visa is valid
-                        send_quarantine = check_medical(case, countries)
-                        if send_quarantine:                            # execute if medical condition not pass
-                            case_decision = decisions[2]               # medical condition not pass, Quarantine
-                        else:
-                            case_decision = decisions[1]               # meet all conditions, accept entry
+                    case_decision = decisions[1]
+                is_valid_visa = check_visa(case, countries)
+                if is_valid_visa:                               # execute if visa is valid (home country isn't Kanadia)
+                    send_quarantine = check_medical(case, countries)
+                    if send_quarantine:                                # execute if medical condition not pass
+                        case_decision = decisions[2]                   # medical condition not pass, Quarantine
+                    else:
+                        case_decision = decisions[1]                   # meet all conditions, accept entry
         res.append(case_decision)
 
     return res
