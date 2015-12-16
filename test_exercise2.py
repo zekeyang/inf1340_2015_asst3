@@ -51,17 +51,49 @@ def test_visitor():
 # Test Helper function #
 ########################
 
-# =========== field_complete function =======================
-
-# =========== check_entry_info function =====================
+# =============================== check_entry_info function ===========================
 
 
-# =========== check_visa function =====================
+def test_check_entry_info():
+    """
+    Test check_entry_info function.
+    True if given case has all required information, False otherwise.
+    """
+
+    cases = read_file("test_check_entry_info.json")
+
+    assert_false(check_entry_info(cases[0]))
+    assert_false(check_entry_info(cases[1]))
+    assert_false(check_entry_info(cases[2]))
+    assert_false(check_entry_info(cases[3]))
+    assert_false(check_entry_info(cases[4]))
+    assert_false(check_entry_info(cases[5]))
+    assert_false(check_entry_info(cases[6]))
+    assert_false(check_entry_info(cases[7]))
+    assert_false(check_entry_info(cases[8]))
+    assert check_entry_info(cases[9])
+
+# ================================ check_visa function ==================================
+
+
 def test_check_visa():
+    """
+    Test check_visa function.
+    Return True if visa check is passed, False otherwise.
+    """
+
     countries = read_file("countries.json")
     cases = read_file("test_check_visa.json")
 
-
+    assert check_visa(cases[0], countries)
+    assert check_visa(cases[1], countries)
+    assert check_visa(cases[2], countries)
+    assert_false(check_visa(cases[7], countries))
+    assert_false(check_visa(cases[3], countries))
+    assert_false(check_visa(cases[4], countries))
+    assert_false(check_visa(cases[5], countries))
+    assert_false(check_visa(cases[6], countries))
+    
 # =========== location_known function =======================
 
 def test_location_known():
