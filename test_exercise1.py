@@ -10,7 +10,7 @@ __author__ = 'Piaoyao Shi & Zixiao Yang & Ming Fu '
 __email__ = "piaoyao.shi@mail.utoronto.ca & zeke.yang@mail.utoronto.ca & mm.fu@mail.utoronto.ca"
 __copyright__ = "2015 Piaoyao Shi & Zixiao Yang & Ming Fu"
 
-from exercise1 import selection, projection, cross_product, UnknownAttributeException
+from exercise1 import *
 
 
 ###########
@@ -23,7 +23,6 @@ EMPLOYEES = [["Surname", "FirstName", "Age", "Salary"],
              ["Verdi", "Nico", 36, 4500],
              ["Smith", "Mark", 40, 3900]]
 
-EMPLOYEES_EMPTY = [["Surname", "FirstName", "Age", "Salary"]]
 
 R1 = [["Employee", "Department"],
       ["Smith", "sales"],
@@ -34,7 +33,13 @@ R2 = [["Department", "Head"],
       ["production", "Mori"],
       ["sales", "Brown"]]
 
-R3 = [["Title_1", "Title_2", "Title_3"]]
+HEADER_ONLY = [["Surname", "FirstName", "Age", "Salary"]]
+
+MANAGERS = [["Surname", "FirstName", "Age"],
+            ["O'Malley", "Jack", 56],
+            ["Verdi", "Nico", 36]]
+
+EMPTY_TABLE = []
 
 
 #####################
