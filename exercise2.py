@@ -118,7 +118,7 @@ def location_known(location, countries):
     :param countries: known countries given by the ministry
     :return: Boolean
     """
-    return location["country"] in countries.keys() or location['country'].upper() == 'KAN' \
+    return location["country"].upper() in countries.keys() or location['country'].upper() == 'KAN' \
         or location['country'].upper() == 'KANADIA'
 
 
