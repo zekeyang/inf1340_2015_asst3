@@ -28,29 +28,24 @@ def test_returning():
 def assert_false(exp):
     assert not exp
 
+# ========================================= Our test cases ===========================================================
+
 ######################
 # Test main function #
 ######################
 
-# ========== Accept Case =====================================
 
-# scenario 1 :
+def test_visitor():
+    """
+    Travellers are visiting KAN.
+    """
+    # case 1: traveller is from a country not require a visa
+    # case 2: requires a visa; visa is not valid
+    # case 3: traveller is coming from a country with a medical advisory
+    # case 4: entry_info_incomplete
+    # case 5: country unknown
 
-# scenario 2:
-
-
-# ========== Quarantine Case =================================
-
-# scenario x
-
-# =========== Reject Case ====================================
-
-# scenario x
-
-# scenario x
-
-# scenario x
-
+    assert decide("test_visiting.json", "countries.json") == ["Accept", "Reject", "Quarantine", "Reject", "Reject"]
 
 ########################
 # Test Helper function #
