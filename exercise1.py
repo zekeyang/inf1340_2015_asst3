@@ -18,6 +18,7 @@ def remove_duplicates(l):
     """
     Removes duplicates from l, where l is a List of Lists.
     :param l: a List
+    :return result: the resulting table
     """
 
     d = {}
@@ -56,9 +57,10 @@ def check_is_empty(res):
 def selection(t, f):
     """
     Return the result of performing operation f on table t.
-    Return NONE if the result is an empty table.
-
-    To do: +add param:
+    Return None if the resulting table rest is an empty (or only has the header).
+    :param t: a list
+    :param f: a function
+    :return res: the resulting table
 
     Example:
     > R = [["A", "B", "C"], [1, 2, 3], [4, 5, 6]]
@@ -67,7 +69,6 @@ def selection(t, f):
     > def f(row): row[-1] > 3
     > select(R, f)
     [["A", "B", "C"], [4, 5, 6]]
-    NOTE: NameError exception ?? why we need to name error ?
     """
 
     res = None
@@ -84,9 +85,13 @@ def selection(t, f):
 def projection(t, r):
     """
     Perform projection operation on table t, using the attributes subset r.
-    Return NONE if the result is an empty table.
+    Return None if the resulting table is empty (or only has the header).
 
-    To do: +add param:
+    :param  t: a list
+    :param  r: a list
+    :return res: the resulting table
+    :raise: MismatchedAttributesException:
+            when attempting set operations on a table that does not contain the named attribute
 
     Example:
     > R = [["A", "B", "C"], [1, 2, 3], [4, 5, 6]]
@@ -94,9 +99,6 @@ def projection(t, r):
     [["A", "C"], [1, 3], [4, 6]]
 
     """
-    # check if each item in r exists in table t schema
-    # return the position of each item
-    # list all value in table t with the projected position
 
     res = None
 
@@ -120,17 +122,18 @@ def projection(t, r):
 def cross_product(t1, t2):
     """
     Return the cross-product of tables t1 and t2.
-    Return NONE if the result is an empty table.
-
-    To do: +add param:
+    Return None if the resulting table res is an empty (or only has the header).
+    :param t1: a list
+    :param t2: a list
+    :return res: the resulting table
 
     Example:
     > R1 = [["A", "B"], [1,2], [3,4]]
     > R2 = [["C", "D"], [5,6]]
     [["A", "B", "C", "D"], [1, 2, 5, 6], [3, 4, 5, 6]]
 
-
     """
+
     res = None
 
     if t1 and t2:
