@@ -190,7 +190,7 @@ def check_visa(case, countries):
 
 def check_medical(case, countries):
     """
-    Return True if the case needs to send to quarantine, False otherwise.
+    Return True if the case is coming from or travelling through a country with a medical advisory, False otherwise.
     :param case: the dictionary representation of the case to be checked
     :param countries: the dictionary representation of the countries info
     :return: boolean
