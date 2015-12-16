@@ -68,11 +68,11 @@ def read_file(filename):
 
 def field_complete(case, field):
     """
-    Check if field field is in case case.
+    True if field in case, False otherwise.
 
     :param case: dictionary representation of case to be checked
     :param field: string
-    :return: True if field in case, False otherwise
+    :return: Boolean
     """
 
     fields = case.keys()
@@ -87,16 +87,21 @@ def field_complete(case, field):
             res = valid_passport_format(case[field])
         elif field == 'entry_reason':
             res = case[field] in ['visit', 'returning']
+        elif field == 'visa':
+            res = 'date' in case[field] and 'code' in case[field] \
+                  and valid_date_format(case[field]['date']) \
+                and valid_visa_format(case[field]['code'])
+            print res
 
     return res
 
 
 def check_entry_info(case):
     """
-    Check if the given case case has complete information
+    True if given case has all required information, False otherwise
 
     :param case: the dictionary representation of the case to be checked
-    :return: True if given case has all required information, False otherwise
+    :return: Boolean
     """
 
     for required_field in REQUIRED_FIELDS:
@@ -107,11 +112,11 @@ def check_entry_info(case):
 
 def location_known(location, countries):
     """
-    Check if location location is known from countries
+    Return True if Check if location is known from countries, False otherwise.
 
     :param location: the dictionary representation of a location to be checked
     :param countries: known countries given by the ministry
-    :return: True if location is known, False otherwise
+    :return: Boolean
     """
     return location["country"] in countries.keys() or location['country'].upper() == 'KAN' \
         or location['country'].upper() == 'KANADIA'
@@ -119,11 +124,11 @@ def location_known(location, countries):
 
 def check_location(case, countries):
     """
-    Check if the locations in a given case case are known
+    Return True if the locations in a given case are known, otherwise False.
 
     :param case: the dictionary representation of the case to be checked
     :param countries: the dictionary representation of the countries info
-    :return: True if all locations are known, False otherwise
+    :return: Boolean
     """
 
     location_fields = ['home', 'from']
@@ -139,10 +144,10 @@ def check_location(case, countries):
 
 def check_home_country(case):
     """"
-    Check
+    Return True if the home country is Kanadia, otherwise False.
 
     :param case: the dictionary representation of the case to be checked
-    :return: True if the home country associated with case is name: Kanadia code: KAN
+    :return: Boolean
     """
 
     res = False
@@ -157,9 +162,13 @@ def check_home_country(case):
 
 def check_visa(case, countries):
     """
-    Return True if visa check is passed, False otherwise
+    Return True if visa check is passed, False otherwise.
 
+    :param case: the dictionary representation of the case to be checked
+    :param countries: the dictionary representation of the countries info
+    :return Boolean
     """
+
     res = False
     if field_complete(case, 'entry_reason') and field_complete(case, 'from') and \
        location_known(case['from'], countries):
@@ -167,8 +176,11 @@ def check_visa(case, countries):
             from_country_code = case['from']['country']
             visa_required = countries[from_country_code]['visitor_visa_required']
             if int(visa_required) > 0:
-                res = field_complete(case, 'visa') and valid_date_format(case['visa']['date']) \
+                res = field_complete(case, 'visa') \
                     and not is_more_than_x_years_ago(2, case['visa']['date'])
+            else:
+                # no visa required
+                res = True
         else:
             # entry reason returning, visa check passed
             res = True
@@ -178,14 +190,18 @@ def check_visa(case, countries):
 
 def check_medical(case, countries):
     """
-    Pre-condition: all locations known
     Return True if the case needs to send to quarantine, False otherwise.
+    :param case: the dictionary representation of the case to be checked
+    :param countries: the dictionary representation of the countries info
+    :return: boolean
+
+    Pre-condition: all locations known
     """
 
     # list of code with medical_advisory
     medical_countries = [x for x in countries if countries[x]['medical_advisory']]
 
-    # list of codes
+    # list of countries codes
     countries_codes = [case[x]['country'] for x in case if x in ['home', 'via', 'from']]
     medical = [x for x in countries_codes if x in medical_countries]
     return medical != []
@@ -216,7 +232,7 @@ def valid_date_format(date_string):
     """
     Checks whether a date has the format yyyy-mm-dd in numbers
     :param date_string: date to be checked
-    :return: Boolean True if the format is valid, False otherwise
+    :return: Boolean; True if the format is valid, False otherwise
     """
 
     p = re.compile("^\d{4}-\d{2}-\d{2}$")
@@ -247,21 +263,21 @@ def decide(input_file, countries_file):
     res = []
 
     for case in cases:
-        case_decision = decisions[0]
+        case_decision = decisions[0]                                   # default decision equals to reject for everyone
         is_info_completed = check_entry_info(case)
 
-        if is_info_completed:
+        if is_info_completed:                                          # execute if file is complete
             is_location_known = check_location(case, countries)
-            if is_location_known:
+            if is_location_known:                                      # execute if location is known
                 is_home_country = check_home_country(case)
-                if is_home_country:
+                if is_home_country:                                    # execute if home country is Kanadia
                     is_valid_visa = check_visa(case, countries)
-                    if is_valid_visa:
+                    if is_valid_visa:                                  # execute if visa is valid
                         send_quarantine = check_medical(case, countries)
-                        if send_quarantine:
-                            case_decision = decisions[2]
+                        if send_quarantine:                            # execute if medical condition not pass
+                            case_decision = decisions[2]               # medical condition not pass, Quarantine
                         else:
-                            case_decision = decisions[1]
+                            case_decision = decisions[1]               # meet all conditions, accept entry
         res.append(case_decision)
 
     return res
