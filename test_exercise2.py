@@ -94,7 +94,8 @@ def test_check_visa():
     assert_false(check_visa(cases[5], countries))
     assert_false(check_visa(cases[6], countries))
     
-# =========== location_known function =======================
+# ================================ location_known function ===============================
+
 
 def test_location_known():
     countries = read_file("countries.json")
@@ -105,8 +106,9 @@ def test_location_known():
     l2 = {"city": "UNKNOWN", "region": "UNKNOWN","country": "UNKNOWN"}
     assert_false(location_known(l2, countries))
 
+# =============================== check_location function ===============================
 
-# =========== check_location function ========================
+
 def test_check_location():
     """
     Check if the locations in a given case case are known
@@ -123,8 +125,9 @@ def test_check_location():
     # all known
     assert check_location(cases[3], countries)
 
+# ============================== check_medical function ===================================
 
-# =========== check_medical function ========================
+
 def test_check_medical():
     cases = read_file('test_check_medical.json')
     countries = read_file("countries.json")
@@ -138,8 +141,7 @@ def test_check_medical():
     # no medical
     assert_false(check_medical(cases[3], countries))
 
-
-# =========== valid_passport_format function =================
+# ============================= valid_passport_format function ===============================
 
 
 def test_valid_passport_format():
@@ -155,14 +157,14 @@ def test_valid_passport_format():
     assert valid_passport_format('9768e-ab1de-8bc14-a3c4e-b12de')
     assert_false(valid_passport_format('9768e-ab1de-8bc14-a3c4e!b12de'))
 
-
-# =========== valid_visa_format function =================
+# ============================= valid_visa_format function =====================================
 
 
 def test_valid_visa_format():
     """
     Checks whether a visa code is two groups of five alphanumeric characters
     """
+
     assert_false(valid_visa_format(''))
     assert_false(valid_visa_format('1234567890'))
     assert_false(valid_visa_format('12345678901'))
@@ -171,11 +173,11 @@ def test_valid_visa_format():
     assert_false(valid_visa_format('12345abcd!'))
     assert_false(valid_visa_format('12345-abcde'))
     assert_false(valid_visa_format('1a2b3c4d5e'))
-    assert_false(valid_visa_format('12345 abcde'))
+    assert valid_visa_format('12345 abcde')
     assert valid_visa_format('1234a bcde5')
     assert valid_visa_format('1a2b3 c4d5e')
 
-# =========== valid_date_format function =====================
+# =========================== valid_date_format function =========================================
 
 
 def test_valid_date_format():
@@ -198,4 +200,3 @@ def test_valid_date_format():
     assert_false(valid_date_format('2015-Dec.16'))
     assert valid_date_format('2015-12-16')
     assert valid_date_format('2016-01-01')
-    assert valid_date_format('9768e-ab1de-8bc14-a3c4e-b12de')
