@@ -224,7 +224,7 @@ def valid_visa_format(visa_code):
     :return: Boolean; True if the format is valid, False otherwise
 
     """
-    p = re.compile("^\w{5} \w{5}$")
+    p = re.compile("^\w{5}-\w{5}$")
     return bool(p.match(visa_code))
 
 

@@ -151,7 +151,7 @@ def test_check_medical():
     assert check_medical(cases[0], countries)
     # from medical
     assert check_medical(cases[1], countries)
-    # visa medical
+    # via medical
     assert check_medical(cases[2], countries)
     # no medical
     assert_false(check_medical(cases[3], countries))
@@ -186,11 +186,10 @@ def test_valid_visa_format():
     assert_false(valid_visa_format('abcdefghij'))
     assert_false(valid_visa_format('abcdefghijk'))
     assert_false(valid_visa_format('12345abcd!'))
-    assert_false(valid_visa_format('12345-abcde'))
     assert_false(valid_visa_format('1a2b3c4d5e'))
-    assert valid_visa_format('12345 abcde')
-    assert valid_visa_format('1234a bcde5')
-    assert valid_visa_format('1a2b3 c4d5e')
+    assert valid_visa_format('12345-abcde')
+    assert valid_visa_format('1234a-bcde5')
+    assert valid_visa_format('1a2b3-c4d5e')
 
 # =========================== valid_date_format function =========================================
 

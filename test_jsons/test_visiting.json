@@ -30,6 +30,10 @@
       "city": "Bala",
       "region": "ON",
       "country": "ALB"
+    },
+    "visa": {
+      "date": "2011-12-31",
+      "code": "CFR6X-XSMVA"
     }
   },
   {
