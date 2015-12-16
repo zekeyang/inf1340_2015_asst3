@@ -94,14 +94,6 @@ def test_selection():
     assert is_equal(result, selection(EMPLOYEES, filter_employees))
 
 
-def test_selection_empty():
-    """
-    Test select operation with an empty table
-    As required, the function shall return None
-    """
-    assert selection(EMPLOYEES_EMPTY, filter_employees) is None
-
-
 def test_projection():
     """
     Test projection operation with normal table
@@ -114,25 +106,6 @@ def test_projection():
               ["Smith", "Mark"]]
 
     assert is_equal(result, projection(EMPLOYEES, ["Surname", "FirstName"]))
-
-
-def test_projection_empty():
-    """
-    Test projection operation with an empty table
-    As required, the function shall return None
-    """
-    assert projection(R3, ["Title_3"]) is None
-
-
-def test_projection_unknown_attribute_exception():
-    """
-    Test projection operation with raising UnknownAttributeException
-    """
-
-    try:
-        projection(EMPLOYEES, ["No_Such_Name"])
-    except UnknownAttributeException:
-        assert True
 
 
 def test_cross_product():
@@ -151,9 +124,150 @@ def test_cross_product():
     assert is_equal(result, cross_product(R1, R2))
 
 
-def test_cross_product_empty():
+######################
+# Our test functions #
+######################
+
+# =========================================Test Function Selection  ===================================================
+
+# with normal table
+
+
+def test_selection_surname_one():
     """
-    Test cross product operation with one empty table
+    Test select operation with a normal table
+    """
+
+    result = [["Surname", "FirstName", "Age", "Salary"],
+              ["Smith", "Mary", 25, 2000],
+              ["Smith", "Mark", 40, 3900]]
+
+    assert is_equal(result, selection(EMPLOYEES, filter_employees_surname_start_with_s))
+
+
+def test_selection_surname_two():
+    """
+    Test select operation with a normal table; No surname starts with "S"
+    """
+    assert selection(MANAGERS, filter_employees_surname_start_with_s) is None
+
+# with empty table
+
+
+def test_selection_empty():
+    """
+    Test select operation with an empty table
     As required, the function shall return None
     """
-    assert cross_product(R1, R3) is None
+    # The testing table is empty (only has the header)
+    assert selection(HEADER_ONLY, filter_employees) is None
+    assert selection(HEADER_ONLY, filter_employees_surname_start_with_s) is None
+    # The testing table is empty
+    assert selection(EMPTY_TABLE, filter_employees) is None
+    assert selection(EMPTY_TABLE, filter_employees_surname_start_with_s) is None
+
+
+# =========================================Test Function Projection ===================================================
+
+# with normal table
+
+def test_projection_managers():
+    """
+    Test projection operation with MANAGERS table
+    """
+
+    result = [["Surname", "Age"],
+              ["O'Malley", 56],
+              ["Verdi", 36]]
+
+    assert is_equal(result, projection(MANAGERS, ["Surname", "Age"]))
+
+# with empty table
+
+
+def test_projection_empty():
+    """
+    Test projection operation with an empty table
+    As required, the function shall return None
+    """
+    # The testing table is empty (only has the header)
+    assert projection(HEADER_ONLY, ["Surname", "FirstName", "Age", "Salary"]) is None
+    # Subset r is empty
+    assert projection(EMPLOYEES, []) is None
+    # The testing table is empty
+    assert projection(EMPTY_TABLE, ["Surname", "FirstName", "Age", "Salary"]) is None
+    # Both Testing table and Subset is empty
+    assert projection(EMPTY_TABLE, []) is None
+
+
+# Test exception
+
+def test_projection_unknown_attribute_exception_one():
+    """
+    Test projection operation with raising UnknownAttributeException
+    """
+    try:
+        projection(EMPLOYEES, ["Position"])
+    except UnknownAttributeException:
+        assert True
+
+
+def test_projection_unknown_attribute_exception_two():
+    """
+    Test projection operation with raising UnknownAttributeException.
+    Subset list, order matters.
+    """
+    try:
+        projection(EMPLOYEES, ["FirstName", "Surname", "Age", "Salary"])
+    except UnknownAttributeException:
+        assert True
+
+# =========================================Test Function Cross_Product ================================================
+
+# with normal table
+
+
+def test_cross_product_managers_employees():
+    """
+    Test cross product operation, with MANAGERS and EMPLOYEES tables.
+    """
+
+    result = [["Surname", "FirstName", "Age", "Salary", "Surname", "FirstName", "Age"],
+              ["Smith", "Mary", 25, 2000, "O'Malley", "Jack", 56],
+              ["Smith", "Mary", 25, 2000, "Verdi", "Nico", 36],
+              ["Black", "Lucy", 40, 3000, "O'Malley", "Jack", 56],
+              ["Black", "Lucy", 40, 3000, "Verdi", "Nico", 36],
+              ["Verdi", "Nico", 36, 4500, "O'Malley", "Jack", 56],
+              ["Verdi", "Nico", 36, 4500, "Verdi", "Nico", 36],
+              ["Smith", "Mark", 40, 3900, "O'Malley", "Jack", 56],
+              ["Smith", "Mark", 40, 3900, "Verdi", "Nico", 36]]
+
+    assert is_equal(result, cross_product(EMPLOYEES, MANAGERS))
+
+
+def test_cross_product_r2_r1():
+    """
+    Test cross product operation, with R2 and R1 tables. Input order matters
+    """
+
+    result = [["Department", "Head", "Employee", "Department"],
+              ["production", "Mori", "Smith", "sales"],
+              ["sales", "Brown", "Smith", "sales"],
+              ["production", "Mori", "Black", "production"],
+              ["sales", "Brown", "Black", "production"],
+              ["production", "Mori", "White", "production"],
+              ["sales", "Brown", "White", "production"]]
+
+    assert is_equal(result, cross_product(R2, R1))
+
+
+# with empty table
+
+def test_cross_product_empty():
+    """
+    Test cross product operation with empty tables
+    As required, the function shall return None
+    """
+    assert cross_product(R1, EMPTY_TABLE) is None
+    assert cross_product(EMPLOYEES, HEADER_ONLY) is None
+    assert cross_product(EMPTY_TABLE, HEADER_ONLY) is None
