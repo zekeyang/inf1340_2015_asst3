@@ -273,7 +273,7 @@ def decide(input_file, countries_file):
                 if is_home_country:                                    # execute if home country is Kanadia
                     case_decision = decisions[1]
                 is_valid_visa = check_visa(case, countries)
-                if is_valid_visa:                               # execute if visa is valid (home country isn't Kanadia)
+                if is_valid_visa:                                      # execute if visa is valid 
                     send_quarantine = check_medical(case, countries)
                     if send_quarantine:                                # execute if medical condition not pass
                         case_decision = decisions[2]                   # medical condition not pass, Quarantine
