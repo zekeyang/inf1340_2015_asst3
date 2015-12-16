@@ -57,7 +57,7 @@ def check_is_empty(res):
 def selection(t, f):
     """
     Return the result of performing operation f on table t.
-    Return None if the resulting table rest is an empty (or only has the header).
+    Return None if the resulting table res is an empty (or only has the header).
     :param t: a list
     :param f: a function
     :return res: the resulting table
@@ -85,7 +85,7 @@ def selection(t, f):
 def projection(t, r):
     """
     Perform projection operation on table t, using the attributes subset r.
-    Return None if the resulting table is empty (or only has the header).
+    Return None if the resulting table res is empty (or only has the header).
 
     :param  t: a list
     :param  r: a list
