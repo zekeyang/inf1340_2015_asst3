@@ -1,0 +1,80 @@
+[
+  {
+    "passport": "DJUGN-KSIG7-JSG34-S8SGJ-MSJGU",
+    "first_name": "Leo",
+    "last_name": "Leburt",
+    "birth_date": "1975-09-12",
+    "home": {
+      "city": "Bala",
+      "region": "ON",
+      "country": "ALB"
+    },
+    "entry_reason": "visit",
+    "from": {
+      "city": "Weasel",
+      "region": "Rodent",
+      "country": "BRD"
+    }
+  },
+  {
+    "passport": "S8SGJ-DJUGN-KSIG7-JSG34-MSJGU",
+    "first_name": "Leo",
+    "last_name": "Leburt",
+    "birth_date": "1975-09-12",
+    "home": {"city": "Weasel",
+              "region": "Rodent",
+              "country": "BRD"
+    },
+    "entry_reason": "visit",
+    "from": {
+      "city": "Bala",
+      "region": "ON",
+      "country": "ALB"
+    }
+  },
+  {
+    "passport": "KSIG7-DJUGN-JSG34-S8SGJ-MSJGU",
+    "first_name": "Leo",
+    "last_name": "Leburt",
+    "birth_date": "1975-09-12",
+    "home": {"city": "Bala",
+              "region": "ON",
+              "country": "ALB"
+    },
+    "entry_reason": "visit",
+    "from": {
+      "city": "B",
+      "region": "ON",
+      "country": "LUG"
+    }
+  },
+  {
+    "entry_reason": "visit",
+    "visa": {
+      "date": "2012-12-31",
+      "code": "CFR6X-XSMVA"
+    },
+    "from": {
+      "city": "a",
+      "region": "a",
+      "country": "JIK"
+    }
+  },
+  {
+    "passport": "DJUGN-KSIG7-JSG34-S8SGJ-MSJGU",
+    "first_name": "Leo",
+    "last_name": "Leburt",
+    "birth_date": "1975-09-12",
+    "home": {
+      "city": "Unknown",
+      "region": "Unknown",
+      "country": "Unknown"
+    },
+    "entry_reason": "visit",
+    "from": {
+      "city": "Unknown",
+      "region": "Unknown",
+      "country": "BRD"
+    }
+  }
+]
