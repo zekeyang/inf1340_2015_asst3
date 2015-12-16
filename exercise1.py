@@ -41,7 +41,7 @@ class UnknownAttributeException(Exception):
 
 def check_is_empty(res):
     """
-    Return None if the table res is empty or only has a header.
+    Assign None value to res if the table res is empty or only has a header.
     :param res: a list
     :return:res: None object
     """
@@ -72,10 +72,11 @@ def selection(t, f):
     """
 
     res = None
-    if t and t[0]:
+    if t and t[0]:               # The if statement will execute if the table is not empty and has a header.
         res = [t[0]]
         for i in xrange(1, len(t)):
-            if f(t[i]):
+            # xrange() is intended to be simple and fast, when the range is large or range elements are never used.
+            if f(t[i]):          # The if statement will execute if the function return True.
                 res.append(t[i])
         res = remove_duplicates(res)
         res = check_is_empty(res)
@@ -85,7 +86,7 @@ def selection(t, f):
 def projection(t, r):
     """
     Perform projection operation on table t, using the attributes subset r.
-    Return None if the resulting table res is empty (or only has the header).
+    Return None if the resulting table res is empty.
 
     :param  t: a list
     :param  r: a list
@@ -102,14 +103,16 @@ def projection(t, r):
 
     res = None
 
-    if t and t[0]:
+    if t and t[0]:        # The if statement will execute if the table is not empty and has a header
+        # Create check table and insert "UnknownColumn" element if t does not contain the attr in r for each attr in r.
         check = ["UnknownColumn" for attr in r if attr not in t[0]]
-        if check:
+        if check:         # The if statement will execute if the check table is not empty
             raise UnknownAttributeException
 
+        # Create indices table, add index in t for each attribute in r
         indices = [t[0].index(attr) for attr in r]
         res = []
-        for k in range(len(t)):
+        for k in xrange(len(t)):
             res.append([t[k][i] for i in indices])
         if not res:
             res = None
@@ -122,7 +125,7 @@ def projection(t, r):
 def cross_product(t1, t2):
     """
     Return the cross-product of tables t1 and t2.
-    Return None if the resulting table res is an empty (or only has the header).
+    Return None if the resulting table res is an empty.
     :param t1: a list
     :param t2: a list
     :return res: the resulting table
@@ -136,16 +139,14 @@ def cross_product(t1, t2):
 
     res = None
 
-    if t1 and t2:
+    if t1 and t2:                    # The if statement will execute if the tables t1 and t1 are not empty.
         res = []
-        for n in xrange(1, len(t1)):
-            for i in xrange(1, len(t2)):
+        for n in xrange(1, len(t1)):        # if t1 only has the header, the for loop will not execute.
+            for i in xrange(1, len(t2)):    # if t2 only has the header, the for loop will not execute.
                 res.append(t1[n] + t2[i])
 
-        res.insert(0, t1[0] + t2[0])
+        res.insert(0, t1[0] + t2[0])  # insert header at the beginning of the list.
         res = remove_duplicates(res)
         res = check_is_empty(res)
 
     return res
-
-
