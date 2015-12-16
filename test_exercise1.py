@@ -68,9 +68,19 @@ def filter_employees(row):
     return row[-2] >= 30 and row[-1] > 3500
 
 
+def filter_employees_surname_start_with_s(row):
+    """
+    Check if employee's start with S
+    :param row: A List in the format:
+        [{Surname}, {FirstName}, {Age}, {Salary}]
+    :return: True if the row satisfies the condition.
+    """
+    return row[0].startswith("S")
+
 ###################
 # TEST FUNCTIONS ##
 ###################
+
 
 def test_selection():
     """
