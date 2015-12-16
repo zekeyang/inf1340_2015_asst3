@@ -47,6 +47,21 @@ def test_visitor():
 
     assert decide("test_visiting.json", "countries.json") == ["Accept", "Reject", "Quarantine", "Reject", "Reject"]
 
+
+def test_our_returning():
+    """
+    Travellers are returning to KAN.
+    """
+    # case 1: traveller is from a country not require a visa
+    # case 2: has a invalid visa.
+    # case 3: traveller is coming from a country with a medical advisory
+    # case 4: entry_info_incomplete
+    # case 5: from unknown location
+    # case 6: not case sensitive
+
+    assert decide("test_our_returning.json", "countries.json") \
+        == ["Accept", "Accept", "Quarantine", "Reject", "Reject", "Accept"]
+
 ########################
 # Test Helper function #
 ########################
@@ -100,10 +115,10 @@ def test_check_visa():
 def test_location_known():
     countries = read_file("countries.json")
 
-    l1 = {"city": "Eureka", "region": "NU","country": "KRA"}
+    l1 = {"city": "Eureka", "region": "NU", "country": "KRA"}
     assert location_known(l1, countries)
 
-    l2 = {"city": "UNKNOWN", "region": "UNKNOWN","country": "UNKNOWN"}
+    l2 = {"city": "UNKNOWN", "region": "UNKNOWN", "country": "UNKNOWN"}
     assert_false(location_known(l2, countries))
 
 # =============================== check_location function ===============================
