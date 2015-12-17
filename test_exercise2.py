@@ -44,15 +44,17 @@ def test_visitor():
     # case 3: traveller is coming from a country with a medical advisory
     # case 4: entry_info_incomplete
     # case 5: country unknown
+    # case 6: requires a visa; visa is valid
 
-    assert decide("test_visiting.json", "countries.json") == ["Accept", "Reject", "Quarantine", "Reject", "Reject"]
+    assert decide("test_visiting.json", "countries.json") \
+        == ["Accept", "Reject", "Quarantine", "Reject", "Reject", "Accept"]
 
 
 def test_our_returning():
     """
     Travellers are returning to KAN.
     """
-    # case 1: traveller is from a country not require a visa
+    # case 1: home country is Kanadia
     # case 2: has a invalid visa.
     # case 3: traveller is coming from a country with a medical advisory
     # case 4: entry_info_incomplete
