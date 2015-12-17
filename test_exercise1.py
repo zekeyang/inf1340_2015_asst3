@@ -41,6 +41,8 @@ MANAGERS = [["Surname", "FirstName", "Age"],
 
 EMPTY_TABLE = []
 
+EMPTY_HEADER = [[]]
+
 
 #####################
 # HELPER FUNCTIONS ##
@@ -194,10 +196,6 @@ def test_projection_empty():
     assert projection(HEADER_ONLY, ["Surname", "FirstName", "Age", "Salary"]) is None
     # Subset r is empty
     assert projection(EMPLOYEES, []) is None
-    # The testing table is empty
-    assert projection(EMPTY_TABLE, ["Surname", "FirstName", "Age", "Salary"]) is None
-    # Both Testing table and Subset is empty
-    assert projection(EMPTY_TABLE, []) is None
 
 
 # Test exception
@@ -222,6 +220,27 @@ def test_projection_unknown_attribute_exception_two():
     except UnknownAttributeException:
         assert True
 
+
+def test_projection_unknown_attribute_exception_three():
+    """
+    Test projection operation with raising UnknownAttributeException.
+    The testing table equals to [].
+    """
+    try:
+        projection(EMPTY_TABLE, ["Surname", "FirstName", "Age", "Salary"])
+    except UnknownAttributeException:
+        assert True
+
+
+def test_projection_unknown_attribute_exception_four():
+    """
+    Test projection operation with raising UnknownAttributeException.
+    The testing table equals to [[]].
+    """
+    try:
+        projection(EMPTY_HEADER, ["Surname", "FirstName", "Age", "Salary"])
+    except UnknownAttributeException:
+        assert True
 # =========================================Test Function Cross_Product ================================================
 
 # with normal table
