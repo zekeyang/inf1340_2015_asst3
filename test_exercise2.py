@@ -135,7 +135,7 @@ def test_check_location():
     assert check_location(cases[0], countries)
     # home unknown
     assert_false(check_location(cases[1], countries))
-    # visa unknown
+    # via unknown
     assert_false(check_location(cases[2], countries))
     # all known
     assert check_location(cases[3], countries)
@@ -163,14 +163,14 @@ def test_valid_passport_format():
     """
     Checks whether a passport number is five sets of five alpha-number characters separated by dashes
     """
-    assert_false(valid_passport_format(''))
-    assert_false(valid_passport_format('1-2-3-4-5'))
-    assert_false(valid_passport_format('a-b-c-d-e'))
-    assert_false(valid_passport_format('a1234 bacee cadsf dadfe ezxce'))
-    assert valid_passport_format('12345-12345-12345-12345-12345')
-    assert valid_passport_format('abcde-abcde-abcde-abcde-abcde')
-    assert valid_passport_format('9768e-ab1de-8bc14-a3c4e-b12de')
-    assert_false(valid_passport_format('9768e-ab1de-8bc14-a3c4e!b12de'))
+    assert_false(valid_passport_format(''))                               # empty str
+    assert_false(valid_passport_format('1-2-3-4-5'))                      # only one number for each group
+    assert_false(valid_passport_format('a-b-c-d-e'))                      # only one letter for each group
+    assert_false(valid_passport_format('a1234 bacee cadsf dadfe ezxce'))  # incorrect delimiters
+    assert valid_passport_format('12345-12345-12345-12345-12345')         # all valid.
+    assert valid_passport_format('Hello-World-Hello-Susan-Hello')         # case insensitive
+    assert valid_passport_format('9768e-ab1de-8bc14-a3c4e-b12de')         # all valid.
+    assert_false(valid_passport_format('9768e-ab1de-8bc14-a3c4e!-b12de'))  # one group has more than 5 characters
 
 # ============================= valid_visa_format function =====================================
 
@@ -180,16 +180,15 @@ def test_valid_visa_format():
     Checks whether a visa code is two groups of five alphanumeric characters
     """
 
-    assert_false(valid_visa_format(''))
-    assert_false(valid_visa_format('1234567890'))
-    assert_false(valid_visa_format('12345678901'))
-    assert_false(valid_visa_format('abcdefghij'))
-    assert_false(valid_visa_format('abcdefghijk'))
-    assert_false(valid_visa_format('12345abcd!'))
-    assert_false(valid_visa_format('1a2b3c4d5e'))
-    assert valid_visa_format('12345-abcde')
-    assert valid_visa_format('1234a-bcde5')
-    assert valid_visa_format('1a2b3-c4d5e')
+    assert_false(valid_visa_format(''))                   # empty str
+    assert_false(valid_visa_format('1234567890'))         # no delimiter, all numbers
+    assert_false(valid_visa_format('12345-678901'))       # has more than 5 alphanumeric characters
+    assert_false(valid_visa_format('abcdefghij'))         # no delimiter, all letters
+    assert_false(valid_visa_format('12345-abcd!'))        # not all characters are alphanumeric
+    assert_false(valid_visa_format('1a2b3-c4d5e-abcde'))  # has more than 2 groups of five alphanumeric characters
+    assert valid_visa_format('12345-67890')               # all numbers
+    assert valid_visa_format('Hello-World')               # all letters, case insensitive
+    assert valid_visa_format('1a2b3-c4D5e')               # mix with numbers and letters, case insensitive
 
 # =========================== valid_date_format function =========================================
 
@@ -199,18 +198,17 @@ def test_valid_date_format():
     Checks whether a date has the format yyyy-mm-dd in numbers
     """
 
-    assert_false(valid_date_format(''))
-    assert_false(valid_date_format('15-12-16'))
-    assert_false(valid_date_format('12-16-2015'))
-    assert_false(valid_date_format('12-16-15'))
-    assert_false(valid_date_format('16-12-2015'))
-    assert_false(valid_date_format('16-12-15'))
-    assert_false(valid_date_format('2015.12.16'))
-    assert_false(valid_date_format('2015/12/16'))
-    assert_false(valid_date_format('2015 12 16'))
-    assert_false(valid_date_format('December 16,2015'))
-    assert_false(valid_date_format('Dec.16, 2015'))
-    assert_false(valid_date_format('2015-December-16'))
-    assert_false(valid_date_format('2015-Dec.16'))
-    assert valid_date_format('2015-12-16')
-    assert valid_date_format('2016-01-01')
+    assert_false(valid_date_format(''))                   # empty str
+    assert_false(valid_date_format('15-12-16'))           # year is invalid
+    assert_false(valid_date_format('12-16-2015'))         # wrong order
+    assert_false(valid_date_format('2015.12.16'))         # incorrect delimiters
+    assert_false(valid_date_format('2015/12/16'))         # incorrect delimiters
+    assert_false(valid_date_format('2015 12 16'))         # incorrect delimiters
+    assert_false(valid_date_format('2015-December-16'))   # incorrect month type
+    assert_false(valid_date_format('2015-13-16'))         # month out of range
+    assert_false(valid_date_format('2015-12-32'))         # day out of range
+    assert_false(valid_date_format('2015-11-31'))         # November has 30 days only
+    assert_false(valid_date_format('2015-02-29'))         # 2015 is not leap year
+    assert valid_date_format('2008-02-29')                # Feb in leap year has 29 days
+    assert valid_date_format('2015-12-16')                # year, month, day all valid
+    assert valid_date_format('2016-01-01')                # year, month, day all valid
