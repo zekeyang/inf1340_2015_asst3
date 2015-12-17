@@ -178,11 +178,17 @@ def test_projection_managers():
     Test projection operation with MANAGERS table
     """
 
-    result = [["Surname", "Age"],
-              ["O'Malley", 56],
-              ["Verdi", 36]]
+    result1 = [["Surname", "Age"],
+               ["O'Malley", 56],
+               ["Verdi", 36]]
 
-    assert is_equal(result, projection(MANAGERS, ["Surname", "Age"]))
+    result2 = [["Age", "Surname"],
+               [56, "O'Malley"],
+               [36, "Verdi"]]
+
+    assert is_equal(result1, projection(MANAGERS, ["Surname", "Age"]))
+
+    assert is_equal(result2, projection(MANAGERS, ["Age", "Surname"]))
 
 # with empty table
 
@@ -213,17 +219,6 @@ def test_projection_unknown_attribute_exception_one():
 def test_projection_unknown_attribute_exception_two():
     """
     Test projection operation with raising UnknownAttributeException.
-    Subset list, order matters.
-    """
-    try:
-        projection(EMPLOYEES, ["FirstName", "Surname", "Age", "Salary"])
-    except UnknownAttributeException:
-        assert True
-
-
-def test_projection_unknown_attribute_exception_three():
-    """
-    Test projection operation with raising UnknownAttributeException.
     The testing table equals to [].
     """
     try:
@@ -232,7 +227,7 @@ def test_projection_unknown_attribute_exception_three():
         assert True
 
 
-def test_projection_unknown_attribute_exception_four():
+def test_projection_unknown_attribute_exception_three():
     """
     Test projection operation with raising UnknownAttributeException.
     The testing table equals to [[]].
