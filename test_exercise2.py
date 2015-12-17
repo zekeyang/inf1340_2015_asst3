@@ -62,6 +62,18 @@ def test_our_returning():
     assert decide("test_our_returning.json", "countries.json") \
         == ["Accept", "Accept", "Quarantine", "Reject", "Reject", "Accept"]
 
+
+def test_mix_citizen_and_visitor():
+    """
+    Travellers are either returning to or visiting KAN.
+    """
+    # case 1: citizen
+    # case 2: visitor, from a country doesn't require visa
+    # case 5: citizen, from a country with a medical advisory
+    # case 7: visitor, from a country requires visa and with medical advisory, no valid visa
+
+    assert decide("test_mix_citizen_visitor.json", "countries.json") == ["Accept", "Accept", "Quarantine", "Reject"]
+
 ########################
 # Test Helper function #
 ########################
