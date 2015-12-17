@@ -61,7 +61,7 @@ def test_our_returning():
     # case 5: from unknown location
     # case 6: not case sensitive
 
-    assert decide("test_our_returning.json", "countries.json") \
+    assert decide("test_our_citizen.json", "countries.json") \
         == ["Accept", "Accept", "Quarantine", "Reject", "Reject", "Accept"]
 
 
