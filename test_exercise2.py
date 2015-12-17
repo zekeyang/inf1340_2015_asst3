@@ -77,16 +77,16 @@ def test_check_entry_info():
 
     cases = read_file("test_check_entry_info.json")
 
-    assert_false(check_entry_info(cases[0]))
-    assert_false(check_entry_info(cases[1]))
-    assert_false(check_entry_info(cases[2]))
-    assert_false(check_entry_info(cases[3]))
-    assert_false(check_entry_info(cases[4]))
-    assert_false(check_entry_info(cases[5]))
-    assert_false(check_entry_info(cases[6]))
-    assert_false(check_entry_info(cases[7]))
-    assert_false(check_entry_info(cases[8]))
-    assert check_entry_info(cases[9])
+    assert_false(check_entry_info(cases[0]))      # Passport Number is missing
+    assert_false(check_entry_info(cases[1]))      # First Name is missing
+    assert_false(check_entry_info(cases[2]))      # Last Name is missing
+    assert_false(check_entry_info(cases[3]))      # Birth Date is missing
+    assert_false(check_entry_info(cases[4]))      # Home (Location) is missing
+    assert_false(check_entry_info(cases[5]))      # Reason for Entry is missing
+    assert_false(check_entry_info(cases[6]))      # From (Location) is missing
+    assert check_entry_info(cases[7])             # visa is not a required field
+    assert check_entry_info(cases[8])             # visa is not a required field
+    assert check_entry_info(cases[9])             # Has all required information
 
 # ================================ check_visa function ==================================
 
@@ -100,14 +100,14 @@ def test_check_visa():
     countries = read_file("countries.json")
     cases = read_file("test_check_visa.json")
 
-    assert check_visa(cases[0], countries)
-    assert check_visa(cases[1], countries)
-    assert check_visa(cases[2], countries)
-    assert_false(check_visa(cases[7], countries))
-    assert_false(check_visa(cases[3], countries))
-    assert_false(check_visa(cases[4], countries))
-    assert_false(check_visa(cases[5], countries))
-    assert_false(check_visa(cases[6], countries))
+    assert check_visa(cases[0], countries)          # visa is not required, doesn't have visa
+    assert check_visa(cases[1], countries)          # visa is not required, has valid visa
+    assert check_visa(cases[2], countries)          # visa is required, has valid visa
+    assert_false(check_visa(cases[7], countries))   # no home country information
+    assert_false(check_visa(cases[3], countries))   # visa is required, visa is expired
+    assert_false(check_visa(cases[4], countries))   # visa is required, code is invalid
+    assert_false(check_visa(cases[5], countries))   # visa is required, doesn't have visa
+    assert_false(check_visa(cases[6], countries))   # visa is not required, no entry reason
     
 # ================================ location_known function ===============================
 
