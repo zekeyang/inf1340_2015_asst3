@@ -10,11 +10,12 @@ __status__ = "Prototype"
 
 # imports one per line
 
+# import pytest       # the import statement exists in the original file, but not used here
 from exercise2 import *
 import os
 
-DIR = os.getcwd()
-DIR += '/test_jsons'
+DIR = os.getcwd()         # define DIR as a string representing the current working directory.
+DIR += '/test_jsons'      # change 'test_jsons/' into '/test_jsons', otherwise the test isn't working.
 os.chdir(DIR)
 
 
