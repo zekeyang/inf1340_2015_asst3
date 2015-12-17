@@ -91,7 +91,6 @@ def field_complete(case, field):
             res = 'date' in case[field] and 'code' in case[field] \
                   and valid_date_format(case[field]['date']) \
                 and valid_visa_format(case[field]['code'])
-            print res
 
     return res
 
@@ -234,9 +233,26 @@ def valid_date_format(date_string):
     :param date_string: date to be checked
     :return: Boolean; True if the format is valid, False otherwise
     """
+    # month in the range of "01"- "12"; day in the range of "01" - "31".
+    p = re.compile("^(\d{4})\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$")
+    date_match = p.match(date_string)
+    if date_match is not None:                     # execute, if date_string match the format
+        year, month, day = date_match.groups()
 
-    p = re.compile("^\d{4}-\d{2}-\d{2}$")
-    return bool(p.match(date_string))
+        if month in ["01", "03", "05", "07", "08", "10", "12"]:
+            if day <= "31":
+                return True
+        elif month == "02":
+            if (int(year) % 100 != 0) and (int(year) % 4 == 0) and (day <= "29"):    # check leap year (normal)
+                return True
+            if (int(year) % 100 == 0) and (int(year) % 400 == 0) and (day <= "29"):  # check leap year (special)
+                return True
+            if int(year) % 4 != 0 and day <= "28":
+                return True
+        else:
+            if day <= "30":
+                return True
+    return False
 
 #################
 # Main Function #
@@ -282,7 +298,3 @@ def decide(input_file, countries_file):
         res.append(case_decision)
 
     return res
-
-
-if __name__ == '__main__':
-    decide('test_returning_citizen.json', 'countries.json')
