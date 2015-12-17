@@ -103,6 +103,9 @@ def projection(t, r):
 
     res = None
 
+    if (not t) or (not t[0]):  # As required,if the testing table is empty or the header is empty, raise an error.
+        raise UnknownAttributeException
+
     if t and t[0]:        # The if statement will execute if the table is not empty and has a header
         # Create check table and insert "UnknownColumn" element if t does not contain the attr in r for each attr in r.
         check = ["UnknownColumn" for attr in r if attr not in t[0]]
